@@ -69,14 +69,18 @@ public class Main {
                     if (opcao.equalsIgnoreCase("SIM")){
                         System.out.println("Insira o endereço de filtro:");
                         opcao = entradaString.nextLine();
-                        for(int i = 0; i < listaEntrevistados.size(); i++){
-                            if ((listaEntrevistados.get(i).getEndereco()).equalsIgnoreCase(opcao)){
-                                System.out.println("Entrevistados residentes na rua " + opcao);
-                                System.out.println("Nome: " + listaEntrevistados.get(i).getNome());
-                                System.out.println("=====================");
-                            } else {
-                                System.out.println("Nenhum entrevistado reside nessa rua.\n");
-                            } 
+                        if (!(listaEntrevistados.isEmpty())){
+                            for(int i = 0; i < listaEntrevistados.size(); i++){
+                                if ((listaEntrevistados.get(i).getEndereco()).equalsIgnoreCase(opcao)){
+                                    System.out.println("Entrevistados residentes na rua " + opcao);
+                                    System.out.println("Nome: " + listaEntrevistados.get(i).getNome());
+                                    System.out.println("=====================");
+                                } else {
+                                    System.out.println("Nenhum entrevistado reside nessa rua.\n");
+                                } 
+                            }
+                        } else {
+                            System.out.println("Nenhum entrevistado cadastrado.\n");
                         }
                     }
                     break;
@@ -85,10 +89,37 @@ public class Main {
                     
                     System.out.println("Entrando no Cadastro de Perguntas");
                     
-                    System.out.println("Insira o ID da pergunta: ");
-                    break;
+                    System.out.println("Insira o ID da pergunta ou 0 para sair");
+                    int id = entrada.nextInt();
+                    
+                    if (Integer.toString(id).equalsIgnoreCase("0")){
+                        System.out.println("");
+                        break;
+                    } else {
+                        System.out.println("Descritivo da Pergunta ou 0 para sair ");
+                        String descritivo = entradaString.nextLine();
+                        if (descritivo.equalsIgnoreCase("0")){
+                            System.out.println("");
+                            break;
+                        } else {
+                            objPerguntas = new Perguntas(id, descritivo);
+                            listaPerguntas.add(objPerguntas);
+                            System.out.println("TESTE");
+                            break;
+                        }
+                    }
                     
                 case 4: // Consulta de perguntas (Exibir todas)
+                    
+                    if (!listaPerguntas.isEmpty()){
+                        for(int i = 0; i < listaPerguntas.size(); i++){
+                            System.out.println("ID: " + listaPerguntas.get(i).getId());
+                            System.out.println(listaPerguntas.get(i).getDescritivo());
+                            System.out.println("=====================");}
+                    } else {
+                        System.out.println("Não existem perguntas cadastradas.\n");
+                    }
+                    
                     break;
                     
                 case 5: // Registro da Entrevista (Nome|Respostas|Data)
