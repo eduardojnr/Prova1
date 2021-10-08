@@ -1,15 +1,13 @@
 
 package provaquestao1;
 
-import java.util.Date;
-
 public class Entrevistas extends Entrevistados{
     
     private String respostas;
-    private Date data;
+    private String data;
     
     // Construtor
-    public Entrevistas(String nome, String endereco, String respostas, Date data) {
+    public Entrevistas(String nome, String endereco, String data, String respostas) {
         
         super(nome, endereco);
         this.respostas = respostas;
@@ -25,11 +23,11 @@ public class Entrevistas extends Entrevistados{
         this.respostas = respostas;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 }

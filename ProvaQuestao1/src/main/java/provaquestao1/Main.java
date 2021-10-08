@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         
         ArrayList<Entrevistados> listaEntrevistados = new ArrayList<>();
         Entrevistados objEntrevistados;
@@ -20,6 +20,7 @@ public class Main {
         Entrevistas objEntrevistas;
         
         int menu;
+        String respostas;
         
         Scanner entrada = new Scanner(System.in);
         Scanner entradaString = new Scanner(System.in);
@@ -72,11 +73,9 @@ public class Main {
                         if (!(listaEntrevistados.isEmpty())){
                             for(int i = 0; i < listaEntrevistados.size(); i++){
                                 if ((listaEntrevistados.get(i).getEndereco()).equalsIgnoreCase(opcao)){
-                                    System.out.println("Entrevistados residentes na rua " + opcao);
+                                    System.out.println("Entrevistado residente na rua " + opcao);
                                     System.out.println("Nome: " + listaEntrevistados.get(i).getNome());
                                     System.out.println("=====================");
-                                } else {
-                                    System.out.println("Nenhum entrevistado reside nessa rua.\n");
                                 } 
                             }
                         } else {
@@ -104,7 +103,7 @@ public class Main {
                         } else {
                             objPerguntas = new Perguntas(id, descritivo);
                             listaPerguntas.add(objPerguntas);
-                            System.out.println("TESTE");
+                            System.out.println("");
                             break;
                         }
                     }
@@ -123,9 +122,52 @@ public class Main {
                     break;
                     
                 case 5: // Registro da Entrevista (Nome|Respostas|Data)
+                    
+                    System.out.println("Entrando no Registro de Entrevistas");
+                    
+                    System.out.println("Insira o Nome do Entrevistado: ");
+                    nome = entradaString.nextLine();
+                    
+                    respostas = "";
+                    for (Entrevistados l : listaEntrevistados){
+                        if (nome.equalsIgnoreCase(l.getNome())){
+                            System.out.println("Insira o endereço: ");
+                            String endereco = entradaString.nextLine();
+                            System.out.println("Respostas");
+                            for(int i = 0; i < listaPerguntas.size(); i++){
+                                System.out.println(listaPerguntas.get(i).getDescritivo());
+                                respostas += entradaString.next();
+                            }
+                            Date atual = new Date();
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            String formatado = sdf.format(atual);
+                            if (!nome.equalsIgnoreCase("") && !(respostas.equalsIgnoreCase(""))){
+                                objEntrevistas = new Entrevistas(nome, endereco, respostas, formatado);
+                                listaEntrevistas.add(objEntrevistas);
+                            }
+                        }
+                    }
                     break;
                     
                 case 6: // Relatório de Entrevistas (Filtro por Data)
+                    System.out.println("Insira a data\n(dd/mm/aaaa)");
+                    String data = entradaString.nextLine();
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    String formatado = sdf.format(data);
+                    
+                    for (int i = 0; i < listaPerguntas.size(); i++){
+                        System.out.println("Perguntas.");
+                        System.out.println(listaPerguntas.get(i).getDescritivo());
+                    }
+                    for (int i = 0; i < listaEntrevistas.size(); i++){
+                        if (formatado.equalsIgnoreCase(listaEntrevistas.get(i).getData())){
+                            System.out.println("========");
+                            System.out.println(listaEntrevistas.get(i).getNome());
+                            System.out.println(listaEntrevistas.get(i).getEndereco());
+                            System.out.println(listaEntrevistas.get(i).getRespostas());
+                        }
+                    }
+                    
                     break;
                     
                 case 0: // Encerrar programa
