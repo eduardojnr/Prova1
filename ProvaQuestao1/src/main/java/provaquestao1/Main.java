@@ -2,11 +2,23 @@
 package provaquestao1;
 
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class Main {
 
     public static void main(String[] args) {
-           
+        
+        ArrayList<Entrevistados> listaEntrevistados = new ArrayList<>();
+        Entrevistados objEntrevistados;
+        
+        ArrayList<Perguntas> listaPerguntas = new ArrayList<>();
+        Perguntas objPerguntas;
+        
+        ArrayList<Entrevistas> listaEntrevistas = new ArrayList<>();
+        Entrevistas objEntrevistas;
+        
         int menu;
         
         Scanner entrada = new Scanner(System.in);
@@ -20,12 +32,60 @@ public class Main {
             switch(menu) {
                 
                 case 1: // Cadastro de entrevistados (Nome | Rua)
-                    break;
+                    
+                    System.out.println("Entrando no Cadastro de Entrevistados");
+                    
+                    System.out.println("Insira o nome do Entrevistado ou 0 para sair");
+                    String nome = entradaString.nextLine();
+                    
+                    if (nome.equalsIgnoreCase("0")){
+                        System.out.println("");
+                        break;
+                    } else {
+                        System.out.println("Insira o endereço do Entrevistado ou 0 para sair");
+                        String endereco = entradaString.nextLine();
+                        if (endereco.equalsIgnoreCase("0")){
+                            System.out.println("");
+                            break;
+                        } else {
+                            objEntrevistados = new Entrevistados(nome, endereco);
+                            listaEntrevistados.add(objEntrevistados);
+                            System.out.println("");
+                            break;
+                        }
+                    }
                     
                 case 2: // Consulta de entrevistados (Filtro por Rua ou S/ Filtro)
+                    
+                    System.out.println("Deseja aplicar algum fitro?\nSIM\nNÃO\n...........");
+                    String opcao = entradaString.nextLine();
+                    if (opcao.equalsIgnoreCase("NÃO")){
+                        for(int i = 0; i < listaEntrevistados.size(); i++){
+                            System.out.println("Nome: " + listaEntrevistados.get(i).getNome());
+                            System.out.println("Endereço: " + listaEntrevistados.get(i).getEndereco());
+                            System.out.println("=====================");}
+                    }
+                    
+                    if (opcao.equalsIgnoreCase("SIM")){
+                        System.out.println("Insira o endereço de filtro:");
+                        opcao = entradaString.nextLine();
+                        for(int i = 0; i < listaEntrevistados.size(); i++){
+                            if ((listaEntrevistados.get(i).getEndereco()).equalsIgnoreCase(opcao)){
+                                System.out.println("Entrevistados residentes na rua " + opcao);
+                                System.out.println("Nome: " + listaEntrevistados.get(i).getNome());
+                                System.out.println("=====================");
+                            } else {
+                                System.out.println("Nenhum entrevistado reside nessa rua.\n");
+                            } 
+                        }
+                    }
                     break;
                     
                 case 3: // Cadastro de perguntas (ID | Descritivo)
+                    
+                    System.out.println("Entrando no Cadastro de Perguntas");
+                    
+                    System.out.println("Insira o ID da pergunta: ");
                     break;
                     
                 case 4: // Consulta de perguntas (Exibir todas)

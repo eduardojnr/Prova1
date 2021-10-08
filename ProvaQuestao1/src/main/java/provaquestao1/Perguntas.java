@@ -1,15 +1,8 @@
-/*
- * Cadastro de perguntas (ID | Descritivo)
- * Consulta de perguntas (Exibir Todas)
- * 
- */
-
 
 package provaquestao1;
 
 public class Perguntas {
     
-    // Ver como se deve declarar para que seja possível a herança
     private int id;
     private String descritivo;
 
